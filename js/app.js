@@ -1,49 +1,4 @@
-//create <div id='target'><div> inside body tag
-const body = document.querySelector('body');
-const script = document.querySelector('script');
-const div = document.createElement('div');
-div.id = 'target';
-body.insertBefore(div, script);
-
-//a function which can render any HTML tag,  with flexible attributes support
-/**
-tag, attrObj, target, text
- * @param {string} tag tag name
- * @param {object} attrObj attribute object
- * @param {string} target target that specify the place to insert tag created inside this function
- * @param {string} text text inside tag
- */
-
-function drawHTML (arr) {
-
-  const tag = arr[0];
-  const attrObj = arr[1];
-  const target = arr[2];
-  const text = arr[3];
-
-  //create element
-  const ele = document.createElement(tag);
-
-  if(text !== undefined){
-    const textNode = document.createTextNode(text);
-    ele.appendChild(textNode);
-  }
-
-  //set attributes to the element
-  const ObjKeys = Object.keys(attrObj);
-  ObjKeys.forEach(function(key) {
-  if( key in attrObj ) {
-    ele.setAttribute(key, attrObj[key]);
-  }
-});
-
-  //insert element into target
-    //get target element
-    const targetEle = document.querySelector(target);
-    targetEle.appendChild(ele);
-
-} //drawHTML function
-
+// html array variable
 const htmlArr = [
   ['div', {'class' : 'top flex'}, 'div#target'],
   ['a',{'class' : 'title gray', 'href' : 'https://www.w3schools.com'},'div.top.flex','w3schools'],
@@ -118,8 +73,58 @@ const htmlArr = [
   ['h2', {'class' : 'left'}, 'section.rightNav', 'Side bar']
 ];
 
+//create <div id='target'><div> inside body tag
+const body = document.querySelector('body');
+const script = document.querySelector('script');
+const div = document.createElement('div');
+div.id = 'target';
+body.insertBefore(div, script);
+
+//a function which can render any HTML tag,  with flexible attributes support
+/**
+tag, attrObj, target, text
+ * @param {string} tag tag name
+ * @param {object} attrObj attribute object
+ * @param {string} target target that specify the place to insert tag created inside this function
+ * @param {string} text text inside tag
+ */
+function drawHTML () {
+// function drawHTML (tag, attrObj, target, text) {
+  //get each value of array as tag, attrObj, target, text
+    // const tag = arr[0];
+    // const attrObj = arr[1];
+    // const target = arr[2];
+    // const text = arr[3];
+
+// ?? arguments
+const [tag, attrObj, target, text] = arguments;
+  //create element
+    const ele = document.createElement(tag);
+
+    if(text !== undefined){
+      const textNode = document.createTextNode(text);
+      ele.appendChild(textNode);
+    }
+
+  //set attributes to the element
+    const ObjKeys = Object.keys(attrObj);
+    ObjKeys.forEach(function(key) {
+      if(key in attrObj ) {
+        ele.setAttribute(key, attrObj[key]);
+      }
+    });
+
+  //insert element into target
+    //get target element
+    const targetEle = document.querySelector(target);
+    targetEle.appendChild(ele);
+
+} //drawHTML function
+
 htmlArr.forEach(val => {
- drawHTML(val);
+  // drawHTML(val[0],val[1],val[2],val[3]);
+ drawHTML.apply(null,val);
+ //?? diff between functionName.call and functionName.apply
 });
 
 document.querySelector('p.p.p1').innerHTML += ' attribute is used to define equal styles for elements with the same class name.';
