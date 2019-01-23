@@ -29,14 +29,11 @@ function drawHTML (arr) {
     ele.appendChild(textNode);
   }
 
-  //add attributes to the element
+  //set attributes to the element
   const ObjKeys = Object.keys(attrObj);
-  // const ObjValues = Object.values(attrObj);
-
   ObjKeys.forEach(function(key) {
   if( key in attrObj ) {
     ele.setAttribute(key, attrObj[key]);
-    //console.log( key, attrObj[key] );
   }
 });
 
@@ -45,9 +42,7 @@ function drawHTML (arr) {
     const targetEle = document.querySelector(target);
     targetEle.appendChild(ele);
 
-    // ele.setAttribute();
-
-}
+} //drawHTML function
 
 const htmlArr = [
   ['div', {'class' : 'top flex'}, 'div#target'],
@@ -111,9 +106,12 @@ const htmlArr = [
   ['hr', {'class' : 'hr'}, 'section.main.flex'],
   ['article', {'class' : 'article' }, 'section.main.flex'],
   ['h2', {'class' : 'h2'}, 'article.article','Using The class Attribute'],
-  ['p', {'class' : 'p'}, 'article.article','The HTML class attribute is used to define equal styles for elements with the same class name.'],
-  ['p', {'class' : 'p'}, 'article.article','So, all HTML elements with the same class attribute will have the same format and style.'],
-  ['p', {'class' : 'p'}, 'article.article','Here we have three < div > elements that point to the same class name:'],
+  ['p', {'class' : 'p p1'}, 'article.article','The HTML '],
+  ['code', {'class' : 'code'} , 'p.p.p1', 'class'],
+  ['p', {'class' : 'p p2'}, 'article.article','So, all HTML elements with the same '],
+  ['code', {'class' : 'code'} , 'p.p.p2', 'class'],
+  ['p', {'class' : 'p p3'}, 'article.article','Here we have three '],
+  ['code', {'class' : 'code'} , 'p.p.p3', ' < div > '],
   ['div', {'class' : 'ex'}, 'article.article'],
   ['h2', {'class' : 'h2'}, 'div.ex', 'Example'],
   ['section', {'class' : 'rightNav'}, 'div.flexColumn'],
@@ -123,3 +121,7 @@ const htmlArr = [
 htmlArr.forEach(val => {
  drawHTML(val);
 });
+
+document.querySelector('p.p.p1').innerHTML += ' attribute is used to define equal styles for elements with the same class name.';
+document.querySelector('p.p.p2').innerHTML += ' attribute will have the same format and style.';
+document.querySelector('p.p.p3').innerHTML += ' elements that point to the same class name:';
